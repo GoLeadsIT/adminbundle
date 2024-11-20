@@ -1,0 +1,7 @@
+{% import "@GoleadsitAdmin/macros/menu.html.twig" as menu %}
+
+<ul class="sidebar-menu" data-widget="tree">
+    {% for m in menu %}
+        {{ menu.getItem(m) }}
+    {% endfor %}
+</ul>

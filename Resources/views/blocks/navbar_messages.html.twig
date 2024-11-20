@@ -1,0 +1,44 @@
+<li class="dropdown messages-menu">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+    <i class="fa fa-envelope-o"></i>
+      {% if messages | length > 0 %}
+          <span class="label label-success">{{ messages | length }}</span>
+      {% endif %}
+  </a>
+  <ul class="dropdown-menu">
+    {% if messages is empty %}
+        <li class="header text-center lead">
+          <p class="h4">
+            <i class="fa fa-hand-peace-o fa-2x" style="margin-bottom: 10px;"></i> <br>
+                ¡No tienes mensajes!
+          </p>
+      </li>
+    {% else %}
+        <li class="header">Tienes {{ messages | length }} mensaje/s</li>
+    {% endif %}
+    <li>
+      <ul class="menu">
+        {% for message in messages %}
+            <li>
+            <a href="{{ message.url }}">
+              <div class="pull-left">
+                <img src="{{ asset('uploads/messages/' ~ message.img) }}" class="img-circle" alt="{{ message.name }}">
+              </div>
+              <h4>
+                {{ message.name }}
+                {% if message.date is empty %}
+                      <small><i class="fa fa-clock-o"></i> {{ 'now' | date('d/m/Y') }}</small>
+                {% elseif message.date | date('d') == 'now' | date('d') %}
+                      <small><i class="fa fa-clock-o"></i> {{ message.date | date('H:i') }}</small>
+                {% else %}
+                      <small><i class="fa fa-clock-o"></i> {{ message.date | date('d/m/Y') }}</small>
+                {% endif %}
+              </h4>
+              <p>{{ message.subject }}</p>
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </li>
+  </ul>
+</li>

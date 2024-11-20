@@ -1,0 +1,37 @@
+<li class="dropdown user user-menu">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        {% if user.img is not empty %}
+            <img src="{{ asset('uploads/users/' ~ user.img) }}" class="user-image" alt="{{ user.nombre ~ ' ' ~ user.apellidos }}">
+        {% else %}
+            <img src="{{ asset('bundles/goleadsitadmin/img/default-user.jpg') }}" class="user-image" alt="{{ user.nombre ~ ' ' ~ user.apellidos }}">
+        {% endif %}
+        <span class="hidden-xs">{{ user.nombre ~ ' ' ~ user.apellidos }}</span>
+    </a>
+    <ul class="dropdown-menu">
+        <li class="user-header">
+            {% if user.img is not empty %}
+                <img src="{{ asset('uploads/users/' ~ user.img) }}" class="img-circle" alt="{{ user.nombre ~ ' ' ~ user.apellidos }}">
+            {% else %}
+                <img src="{{ asset('bundles/goleadsitadmin/img/default-user.jpg') }}" class="img-circle" alt="{{ user.nombre ~ ' ' ~ user.apellidos }}">
+            {% endif %}
+            <p>
+                {{ user.nombre ~ ' ' ~ user.apellidos }}
+                <small>Miembro desde {{ user.createdAt | date('d/m/Y') }}</small>
+            </p>
+        </li>
+        {% if userProfilePath is not empty or userLogoutPath is not empty %}
+            <li class="user-footer">
+                {% if userProfilePath is not empty %}
+                    <div class="{{ userLogoutPath is empty ? 'text-center' : 'pull-left' }}">
+                        <a href="{{ path(userProfilePath, {'id': user.id}) }}" class="btn btn-default btn-flat">Perfil</a>
+                    </div>
+                {% endif %}
+                {% if userLogoutPath is not empty %}
+                    <div class="{{ userProfilePath is empty ? 'text-center' : 'pull-right' }}">
+                        <a href="{{ path(userLogoutPath) }}" class="btn btn-default btn-flat">Cerrar Sesión</a>
+                    </div>
+                {% endif %}
+            </li>
+        {% endif %}
+    </ul>
+</li>

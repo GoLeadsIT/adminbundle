@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <!-- AbstractMessagesProvider -->
+        <service id="goleadsit_admin.messages_provider" class="Goleadsit\AdminBundle\Service\AbstractMessagesProvider" public="true" />
+        <service id="Goleadsit\AdminBundle\Service\AbstractMessagesProvider" alias="goleadsit_admin.messages_provider" public="false"/>
+
+        <!-- AbstractNotificationProvider -->
+        <service id="goleadsit_admin.notification_provider" class="Goleadsit\AdminBundle\Service\AbstractNotificationsProvider" public="true" />
+        <service id="Goleadsit\AdminBundle\Service\AbstractNotificationsProvider" alias="goleadsit_admin.notification_provider" public="false"/>
+
+        <!-- AbstractTasksProvider -->
+        <service id="goleadsit_admin.task_provider" class="Goleadsit\AdminBundle\Service\AbstractTasksProvider" public="true" />
+        <service id="Goleadsit\AdminBundle\Service\AbstractTasksProvider" alias="goleadsit_admin.task_provider" public="false"/>
+
+        <!-- AbstractUserProvider -->
+        <service id="goleadsit_admin.user_provider" class="Goleadsit\AdminBundle\Service\AbstractUserProvider" public="true" />
+        <service id="Goleadsit\AdminBundle\Service\AbstractUserProvider" alias="goleadsit_admin.user_provider" public="false"/>
+
+        <!-- ConfigManager -->
+        <service id="goleadsit_admin.config_manager" class="Goleadsit\AdminBundle\DependencyInjection\ConfigManager" public="true">
+            <argument type="service" id="goleadsit_admin.menu_item_helper" />
+            <argument type="service" id="goleadsit_admin.messages_provider" />
+            <argument type="service" id="goleadsit_admin.notification_provider" />
+            <argument type="service" id="goleadsit_admin.task_provider" />
+            <argument type="service" id="goleadsit_admin.user_provider" />
+        </service>
+        <service id="Goleadsit\AdminBundle\DependencyInjection\ConfigManager" alias="goleadsit_admin.config_manager" public="false"/>
+
+        <!-- TwigExtension -->
+        <service id="goleadsit_admin.twig_extension" class="Goleadsit\AdminBundle\Twig\Extension\TwigExtension" public="false">
+            <argument type="service" id="goleadsit_admin.config_manager" />
+            <argument type="service" id="twig" />
+            <argument type="service" id="router.default" />
+
+            <tag name="twig.extension" />
+        </service>
+
+        <!-- MenuItemHelper -->
+        <service id="goleadsit_admin.menu_item_helper" class="Goleadsit\AdminBundle\Service\MenuItemHelper" public="false" />
+    </services>
+</container>

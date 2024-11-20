@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <title>
+      {% block base_title %}
+        {{ title is defined ? title }}
+      {% endblock base_title %}
+      {{ getBaseTitle() }}
+    </title>
+
+    {% block base_stylesheets %}
+      <!-- Bootstrap 3.3.7 -->
+      <link rel="stylesheet" href="{{ asset('bundles/goleadsitadmin/vendor/bootstrap/dist/css/bootstrap.min.css') }}">
+      <!-- Font Awesome -->
+      <link rel="stylesheet" href="{{ asset('bundles/goleadsitadmin/vendor/font-awesome/css/font-awesome.min.css') }}">
+    {% endblock base_stylesheets %}
+
+    {% block base_custom_stylesheets %}
+      <!-- Theme style -->
+      <link rel="stylesheet" href="{{ asset('bundles/goleadsitadmin/css/AdminLTE.min.css') }}">
+      <!-- AdminLTE Skins. Choose a skin from the css/skins folder instead of downloading all of them to reduce the load. -->
+      <link rel="stylesheet" href="{{ asset('bundles/goleadsitadmin/css/skins/_all-skins.min.css') }}">
+      <link rel="stylesheet" href="{{ asset('bundles/goleadsitadmin/css/theme.css') }}">
+    {% endblock base_custom_stylesheets %}
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    {% block base_fonts %}
+      <!-- Google Font -->
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    {% endblock base_fonts %}
+  </head>
+  <body class="hold-transition {{ getBaseSkin() }} sidebar-mini {{ getNavbarClass() }} {{ getSidebarClass() }}">
+    <div class="wrapper">
+      {% include '@GoleadsitAdmin/blocks/base_navbar.html.twig' %}
+
+      {% include '@GoleadsitAdmin/blocks/base_sidebar.html.twig' %}
+
+      <div class="content-wrapper">
+        {% block base_header %}
+          {% include '@GoleadsitAdmin/blocks/base_header.html.twig' %}
+        {% endblock base_header %}
+
+        <!-- Main content -->
+        <section class="content">
+          {% block base_flashes %}
+            {% include '@GoleadsitAdmin/blocks/base_flashes.html.twig' %}
+          {% endblock %}
+
+          {% block base_body %}{% endblock base_body %}
+        </section>
+        <!-- /.content -->
+      </div>
+        <!-- /.content-wrapper -->
+
+      {% include '@GoleadsitAdmin/blocks/base_footer.html.twig' %}
+    </div>
+    <!-- ./wrapper -->
+
+    {% block base_javascripts %}
+      <!-- jQuery 3 -->
+      <script src="{{ asset('bundles/goleadsitadmin/vendor/jquery/dist/jquery.min.js') }}"></script>
+      <!-- jQuery UI 1.11.4 -->
+      <script src="{{ asset('bundles/goleadsitadmin/vendor/jquery-ui/jquery-ui.min.js') }}"></script>
+      <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+      <script> $.widget.bridge('uibutton', $.ui.button); </script>
+      <!-- Bootstrap 3.3.7 -->
+      <script src="{{ asset('bundles/goleadsitadmin/vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+      <!-- Slimscroll -->
+      <script src="{{ asset('bundles/goleadsitadmin/vendor/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
+      <!-- FastClick -->
+      <script src="{{ asset('bundles/goleadsitadmin/vendor/fastclick/lib/fastclick.js') }}"></script>
+    {% endblock base_javascripts %}
+
+    {% block base_custom_javascripts %}
+      <!-- AdminLTE App -->
+      <script src="{{ asset('bundles/goleadsitadmin/js/adminlte.min.js') }}"></script>
+    {% endblock base_custom_javascripts %}
+  </body>
+</html>

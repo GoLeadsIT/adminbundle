@@ -1,0 +1,22 @@
+{
+    "name": "goleadsit/adminbundle",
+    "description": "Admin theme",
+    "type": "symfony-bundle",
+    "authors": [
+        {
+            "name": "José Luis",
+            "email": "jose.luis.f91.dev@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Goleadsit\\AdminBundle\\": ""
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
+}

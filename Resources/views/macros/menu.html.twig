@@ -1,0 +1,59 @@
+{% macro getItemHeader(label) %}
+    <li class="header">{{ label | upper }}</li>
+{% endmacro %}
+
+{% macro getItemA(menuItemModel) %}
+    <a href="{{ goleadsitParsePath(menuItemModel.route) }}">
+        <i class="fa {{ menuItemModel.icon }}"></i>
+        <span>{{ menuItemModel.label | capitalize }}</span>
+        <!--<span class="pull-right-container">
+            <small class="label pull-right bg-green">new</small>
+        </span>-->
+    </a>
+{% endmacro %}
+
+{% macro getItemAMultilevel(menuItemModel) %}
+    <a href="{{ goleadsitParsePath(menuItemModel.route) }}">
+        <i class="fa {{ menuItemModel.icon }}"></i>
+        <span>{{ menuItemModel.label | capitalize }}</span>
+        <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+        </span>
+    </a>
+{% endmacro %}
+
+{% macro getChildrens(menuItemModel) %}
+    {% import _self as helper %}
+
+    <ul class="treeview-menu">
+        {% for child in menuItemModel.childs %}
+            {% if child.childs is empty %}
+                <li class="{{ child.isActive ? 'is_active' }}">
+                    {{ helper.getItemA(child) }}
+                </li>
+            {% else %}
+                <li class="treeview {{ child.isActive ? 'is_active' }}">
+                    {{ helper.getItemAMultilevel(child) }}
+                    {{ helper.getChildrens(child) }}
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+{% endmacro %}
+
+{% macro getItem(menuItemModel) %}
+    {% import _self as helper %}
+
+    {% if menuItemModel.isHeader %}
+        {{ helper.getItemHeader(menuItemModel.label) }}
+    {% elseif not menuItemModel.isHeader and menuItemModel.childs is empty %}
+        <li class="{{ menuItemModel.isActive ? 'is_active' }}">
+            {{ helper.getItemA(menuItemModel) }}
+        </li>
+    {% elseif not menuItemModel.isHeader and menuItemModel.childs is not empty %}
+        <li class="treeview {{ menuItemModel.isActive ? 'is_active' }}">
+            {{ helper.getItemAMultilevel(menuItemModel) }}
+            {{ helper.getChildrens(menuItemModel) }}
+        </li>
+    {% endif %}
+{% endmacro %}
